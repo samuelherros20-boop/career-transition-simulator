@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Data Analyst Transition Plan</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Google Font: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            emerald: {
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              900: '#064e3b',
+              950: '#022c22',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #09130e;
+      color: #f0fdf4;
+    }
+
+    /* Custom Range Slider Styling in Emerald Green */
+    input[type=range] {
+      -webkit-appearance: none;
+      background: transparent;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 22px;
+      width: 22px;
+      border-radius: 50%;
+      background: #10b981;
+      cursor: pointer;
+      margin-top: -8px;
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.7);
+      transition: transform 0.15s ease-in-out;
+    }
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.18);
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 7px;
+      cursor: pointer;
+      background: #1f3d2f;
+      border-radius: 4px;
+    }
+
+    .glass-card {
+      background: rgba(15, 31, 23, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(52, 211, 153, 0.15);
+    }
+
+    .glass-card-accent {
+      background: rgba(11, 26, 19, 0.88);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #09130e;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #133a29;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #10b981;
+    }
+  </style>
+</head>
+<body class="min-h-screen pb-12">
+
+  <header class="border-b border-emerald-900/50 bg-emerald-950/80 sticky top-0 z-40 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-slate-950 font-bold shadow-lg shadow-emerald-500/20">
+          <i class="fa-solid fa-graduation-cap text-xl"></i>
+        </div>
+        <div>
+          <h1 class="text-xl font-extrabold text-white tracking-tight flex items-center gap-2">
+            My Personal Plan: Bartender <i class="fa-solid fa-arrow-right text-emerald-400 text-xs"></i> Data Analyst
+          </h1>
+          <p class="text-xs text-emerald-300/80">Secure your income while studying on Coursera at your own pace</p>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-3">
+        <button id="reset-defaults-btn" class="px-3.5 py-1.5 text-xs font-semibold text-emerald-200 bg-emerald-950/80 hover:bg-emerald-900 rounded-lg border border-emerald-800 transition flex items-center gap-2">
+          <i class="fa-solid fa-rotate-left"></i> Reset Defaults
+        </button>
+        <button id="open-settings-btn" class="px-3.5 py-1.5 text-xs font-bold text-slate-950 bg-emerald-400 hover:bg-emerald-300 rounded-lg shadow-md transition flex items-center gap-2">
+          <i class="fa-solid fa-sliders"></i> Adjust My Numbers
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 space-y-6">
+
+    <section class="glass-card rounded-2xl p-4 sm:p-5">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Preset Strategies</span>
+          <h2 class="text-base font-semibold text-slate-200">Select a pace or adjust the sliders for your schedule</h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 w-full md:w-auto">
+          
+          <button data-preset="coursera_standard" class="preset-btn px-4 py-2.5 rounded-xl border border-emerald-500/50 text-left transition bg-emerald-950/60 hover:bg-emerald-900/60 group ring-1 ring-emerald-500/40">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-emerald-300 flex items-center gap-1.5">
+                <i class="fa-solid fa-bullseye"></i> My Goal (2h/day)
+              </span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-200 font-mono">Recommended</span>
+            </div>
+            <p class="text-[11px] text-emerald-300/70 mt-1">4 Shifts/wk • 2.0 hrs Coursera/day</p>
+          </button>
+
+          <button data-preset="fast_track" class="preset-btn px-4 py-2.5 rounded-xl border border-emerald-900 hover:border-emerald-500/50 text-left transition bg-emerald-950/30 hover:bg-emerald-900/40 group">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+                <i class="fa-solid fa-bolt"></i> Fast Track
+              </span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300 font-mono">Fast</span>
+            </div>
+            <p class="text-[11px] text-emerald-300/60 mt-1">3 Shifts/wk • 3.5 hrs Coursera/day</p>
+          </button>
+
+          <button data-preset="max_income" class="preset-btn px-4 py-2.5 rounded-xl border border-emerald-900 hover:border-emerald-500/50 text-left transition bg-emerald-950/30 hover:bg-emerald-900/40 group">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+                <i class="fa-solid fa-shield-halved"></i> Max Income
+              </span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-300 font-mono">Safe</span>
+            </div>
+            <p class="text-[11px] text-emerald-300/60 mt-1">5 Shifts/wk • 1.5 hrs Coursera/day</p>
+          </button>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <section class="lg:col-span-5 glass-card-accent rounded-2xl p-5 sm:p-6 space-y-6">
+        <div class="flex items-center justify-between border-b border-emerald-900/60 pb-3">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-sliders text-emerald-400"></i>
+            <h2 class="text-lg font-bold text-white">Routine Controls</h2>
+          </div>
+          <span class="text-xs font-mono text-emerald-300 bg-emerald-900/50 px-2.5 py-1 rounded-md border border-emerald-700/50">Live Calculation</span>
+        </div>
+
+        <!-- Lever 1: Bartending Shifts -->
+        <div class="space-y-3 bg-emerald-950/60 p-4 rounded-xl border border-emerald-900/60">
+          <div class="flex justify-between items-center">
+            <label for="shifts-slider" class="text-sm font-semibold text-slate-100 flex items-center gap-2">
+              <i class="fa-solid fa-martini-glass-citrus text-emerald-400"></i>
+              Bartending Shifts per Week
+            </label>
+            <div class="text-right">
+              <span id="shifts-val" class="text-2xl font-black text-emerald-400 font-mono">4.0</span>
+              <span class="text-xs text-emerald-300/70">shifts</span>
+            </div>
+          </div>
+          <input type="range" id="shifts-slider" min="1" max="6" step="0.5" value="4.0" class="w-full">
+          <div class="flex justify-between text-[11px] text-emerald-300/60 font-medium">
+            <span>1 shift (Low cash)</span>
+            <span>4 shifts (Balanced)</span>
+            <span>6 shifts (Max work)</span>
+          </div>
+          
+          <div class="pt-2 border-t border-emerald-900/60 flex justify-between items-center text-xs">
+            <span class="text-slate-300 font-medium">Estimated Gross Income:</span>
+            <span id="shift-income-calc" class="font-mono text-emerald-300 font-bold">$3,466 / mo</span>
+          </div>
+        </div>
+
+        <!-- Lever 2: Coursera Study Hours -->
+        <div class="space-y-3 bg-emerald-950/60 p-4 rounded-xl border border-emerald-900/60">
+          <div class="flex justify-between items-center">
+            <label for="study-slider" class="text-sm font-semibold text-slate-100 flex items-center gap-2">
+              <i class="fa-solid fa-book-open-reader text-emerald-400"></i>
+              Daily Coursera Study Hours
+            </label>
+            <div class="text-right">
+              <span id="study-val" class="text-2xl font-black text-emerald-400 font-mono">2.0</span>
+              <span class="text-xs text-emerald-300/70">hrs/day</span>
+            </div>
+          </div>
+          <input type="range" id="study-slider" min="0.5" max="6" step="0.5" value="2.0" class="w-full">
+          <div class="flex justify-between text-[11px] text-emerald-300/60 font-medium">
+            <span>0.5 hr</span>
+            <span>2.0 hrs (My Goal)</span>
+            <span>6.0 hrs</span>
+          </div>
+
+          <div class="pt-2 border-t border-emerald-900/60 flex justify-between items-center text-xs">
+            <span class="text-slate-300 font-medium">Total Weekly Commitment:</span>
+            <span id="weekly-study-calc" class="font-mono text-emerald-300 font-bold">12.0 hrs / wk (6 days)</span>
+          </div>
+        </div>
+
+        <!-- Days per week toggle -->
+        <div class="bg-emerald-950/40 p-3.5 rounded-xl border border-emerald-900/50 flex items-center justify-between">
+          <span class="text-xs text-emerald-200 font-semibold flex items-center gap-2">
+            <i class="fa-regular fa-calendar-check text-emerald-400"></i> Study Days per Week
+          </span>
+          <div class="flex bg-emerald-950 p-1 rounded-lg border border-emerald-800">
+            <button data-days="5" class="study-days-btn px-2.5 py-1 text-xs rounded font-medium text-emerald-300/70 hover:text-white transition">5 days</button>
+            <button data-days="6" class="study-days-btn px-2.5 py-1 text-xs rounded font-medium text-slate-950 bg-emerald-400 font-bold shadow transition">6 days</button>
+            <button data-days="7" class="study-days-btn px-2.5 py-1 text-xs rounded font-medium text-emerald-300/70 hover:text-white transition">7 days</button>
+          </div>
+        </div>
+
+        <!-- Balance/Health Status -->
+        <div class="bg-emerald-950/60 p-4 rounded-xl border border-emerald-900/60 space-y-2">
+          <div class="flex justify-between items-center text-xs">
+            <span class="font-semibold text-slate-200 flex items-center gap-1.5">
+              <i class="fa-solid fa-battery-half text-emerald-400"></i> Workload & Burnout Balance
+            </span>
+            <span id="burnout-tag" class="font-bold text-emerald-300 px-2 py-0.5 rounded bg-emerald-500/20 border border-emerald-500/30 text-[11px]">Sustainable</span>
+          </div>
+          <div class="w-full bg-emerald-950 h-2.5 rounded-full overflow-hidden border border-emerald-900">
+            <div id="burnout-bar" class="bg-emerald-400 h-full rounded-full transition-all duration-300" style="width: 40%;"></div>
+          </div>
+          <p id="burnout-desc" class="text-[11px] text-emerald-200/70">Total load: ~42 hours per week between shifts and Coursera. Great pace with low burnout risk.</p>
+        </div>
+
+      </section>
+
+      <section class="lg:col-span-7 space-y-6">
+        
+        <!-- Key Metrics Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          
+          <!-- Metric 1: Coursera Progress Horizon -->
+          <div class="glass-card rounded-2xl p-5 border-l-4 border-l-emerald-400 flex flex-col justify-between">
+            <div class="flex items-center justify-between text-xs text-emerald-300/80">
+              <span class="font-bold uppercase tracking-wider text-emerald-300">Time to Job Readiness</span>
+              <i class="fa-solid fa-clock text-emerald-400 text-base"></i>
+            </div>
+            <div class="my-3">
+              <div class="flex items-baseline gap-2">
+                <span id="kpi-months-ready" class="text-3xl font-black text-white font-mono">5.8</span>
+                <span class="text-sm font-bold text-emerald-400">Months</span>
+              </div>
+              <p id="kpi-hours-summary" class="text-xs text-emerald-200/70 mt-1">Goal: 300 total hrs (~52 hrs/mo)</p>
+            </div>
+            <div class="pt-2 border-t border-emerald-900/60 flex justify-between items-center text-[11px]">
+              <span class="text-emerald-300/70">Ready for job market in:</span>
+              <span id="kpi-ready-date" class="font-bold text-emerald-300 font-mono">April 2027</span>
+            </div>
+          </div>
+
+          <!-- Metric 2: Income Balance -->
+          <div id="kpi-income-card" class="glass-card rounded-2xl p-5 border-l-4 border-l-emerald-500 flex flex-col justify-between">
+            <div class="flex items-center justify-between text-xs text-emerald-300/80">
+              <span class="font-bold uppercase tracking-wider text-emerald-300">Income Maintenance</span>
+              <i id="kpi-income-icon" class="fa-solid fa-wallet text-emerald-400 text-base"></i>
+            </div>
+            <div class="my-3">
+              <div class="flex items-baseline gap-2">
+                <span id="kpi-net-surplus" class="text-3xl font-black text-emerald-300 font-mono">+$966</span>
+                <span id="kpi-income-badge" class="text-[10px] px-2 py-0.5 rounded font-bold bg-emerald-500/20 text-emerald-200 border border-emerald-500/30">Income Covered</span>
+              </div>
+              <p id="kpi-expense-breakdown" class="text-xs text-emerald-200/70 mt-1">Income $3,466 - Expenses $2,500</p>
+            </div>
+            <div class="pt-2 border-t border-emerald-900/60 flex justify-between items-center text-[11px]">
+              <span class="text-emerald-300/70">Monthly Financial Status:</span>
+              <span id="kpi-financial-status" class="font-bold text-emerald-300">Covering expenses & saving</span>
+            </div>
+          </div>
+
+          <!-- Metric 3: Savings Buffer at Launch -->
+          <div class="glass-card rounded-2xl p-5 border-l-4 border-l-teal-400 flex flex-col justify-between">
+            <div class="flex items-center justify-between text-xs text-emerald-300/80">
+              <span class="font-bold uppercase tracking-wider text-emerald-300">Savings at Graduation</span>
+              <i class="fa-solid fa-piggy-bank text-teal-400 text-base"></i>
+            </div>
+            <div class="my-3">
+              <div class="flex items-baseline gap-2">
+                <span id="kpi-buffer-launch" class="text-3xl font-black text-white font-mono">$9,600</span>
+              </div>
+              <p class="text-xs text-emerald-200/70 mt-1">Safety cushion for job search</p>
+            </div>
+            <div class="pt-2 border-t border-emerald-900/60 flex justify-between items-center text-[11px]">
+              <span class="text-emerald-300/70">Months of Expenses Covered:</span>
+              <span id="kpi-search-runway-months" class="font-bold text-teal-300 font-mono">3.8 Months</span>
+            </div>
+          </div>
+
+          <!-- Metric 4: Salary & Growth Gain -->
+          <div class="glass-card rounded-2xl p-5 border-l-4 border-l-emerald-300 flex flex-col justify-between">
+            <div class="flex items-center justify-between text-xs text-emerald-300/80">
+              <span class="font-bold uppercase tracking-wider text-emerald-300">Estimated Career Jump</span>
+              <i class="fa-solid fa-chart-line text-emerald-300 text-base"></i>
+            </div>
+            <div class="my-3">
+              <div class="flex items-baseline gap-2">
+                <span id="kpi-annual-gain" class="text-3xl font-black text-emerald-300 font-mono">+$26,400</span>
+                <span class="text-xs text-emerald-200/70">/ yr</span>
+              </div>
+              <p class="text-xs text-emerald-200/70 mt-1">Includes Health Insurance + Paid Time Off</p>
+            </div>
+            <div class="pt-2 border-t border-emerald-900/60 flex justify-between items-center text-[11px]">
+              <span class="text-emerald-300/70">Target Starting Salary:</span>
+              <span id="kpi-target-salary-display" class="font-bold text-emerald-300 font-mono">$68,000 / yr</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="glass-card rounded-2xl p-5 space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-chart-area text-emerald-400"></i>
+                Projection of Savings & Progress (12 Months)
+              </h3>
+              <p class="text-xs text-emerald-200/70">Shows wealth accumulation while studying and working</p>
+            </div>
+            <div class="flex items-center gap-3 text-xs">
+              <span class="flex items-center gap-1.5 text-emerald-200">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span> Your Balance ($)
+              </span>
+              <span class="flex items-center gap-1.5 text-emerald-200">
+                <span class="w-2.5 h-2.5 rounded-full bg-teal-300"></span> Minimum Floor
+              </span>
+            </div>
+          </div>
+
+          <div class="h-64 w-full relative">
+            <canvas id="runwayChart"></canvas>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <section class="glass-card rounded-2xl p-5 sm:p-6 space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-emerald-900/60 pb-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Side-by-Side Comparison</span>
+          <h2 class="text-lg font-bold text-white">Which Option Fits Your Life Best?</h2>
+          <p class="text-xs text-emerald-300/70">Compare your current setup with alternative work and study paces.</p>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="border-b border-emerald-900/60 text-[11px] font-semibold text-emerald-300 uppercase tracking-wider">
+              <th class="py-3 px-4">Strategy</th>
+              <th class="py-3 px-4">Shifts / Wk</th>
+              <th class="py-3 px-4">Coursera / Day</th>
+              <th class="py-3 px-4">Months to Graduate</th>
+              <th class="py-3 px-4">Net Monthly Income</th>
+              <th class="py-3 px-4">Savings at Graduation</th>
+              <th class="py-3 px-4">Evaluation</th>
+              <th class="py-3 px-4 text-right">Action</th>
+            </tr>
+          </thead>
+          <tbody id="comparison-table-body" class="divide-y divide-emerald-900/40 text-xs">
+            <!-- Dynamic Rows Injected via JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <div class="glass-card rounded-2xl p-5 space-y-4 md:col-span-2">
+        <div class="flex items-center justify-between border-b border-emerald-900/60 pb-3">
+          <div>
+            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-list-check text-emerald-400"></i>
+              Key Coursera Modules (Data Analyst)
+            </h3>
+            <p class="text-xs text-emerald-300/70">Approx. 300 hours of hands-on practice + portfolio projects</p>
+          </div>
+          <span class="text-xs font-mono text-emerald-300 bg-emerald-900/60 px-2.5 py-1 rounded border border-emerald-700/50">300 hrs target</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+          
+          <div class="bg-emerald-950/50 p-3 rounded-xl border border-emerald-900/60 space-y-1.5">
+            <div class="flex justify-between font-semibold">
+              <span class="text-slate-200 flex items-center gap-1.5"><i class="fa-solid fa-database text-emerald-400"></i> SQL (Databases & Queries)</span>
+              <span class="font-mono text-emerald-300">80 hrs</span>
+            </div>
+            <div class="w-full bg-emerald-950 h-1.5 rounded-full border border-emerald-900">
+              <div class="bg-emerald-400 h-full rounded-full" style="width: 27%;"></div>
+            </div>
+            <p class="text-[10px] text-emerald-300/60">SELECT, JOINs, Group By, Subqueries, CTEs</p>
+          </div>
+
+          <div class="bg-emerald-950/50 p-3 rounded-xl border border-emerald-900/60 space-y-1.5">
+            <div class="flex justify-between font-semibold">
+              <span class="text-slate-200 flex items-center gap-1.5"><i class="fa-solid fa-chart-pie text-emerald-400"></i> Visualization (Tableau / Power BI)</span>
+              <span class="font-mono text-emerald-300">70 hrs</span>
+            </div>
+            <div class="w-full bg-emerald-950 h-1.5 rounded-full border border-emerald-900">
+              <div class="bg-emerald-400 h-full rounded-full" style="width: 23%;"></div>
+            </div>
+            <p class="text-[10px] text-emerald-300/60">Interactive dashboards & storytelling</p>
+          </div>
+
+          <div class="bg-emerald-950/50 p-3 rounded-xl border border-emerald-900/60 space-y-1.5">
+            <div class="flex justify-between font-semibold">
+              <span class="text-slate-200 flex items-center gap-1.5"><i class="fa-brands fa-python text-emerald-400"></i> Data Cleaning (Excel & Python)</span>
+              <span class="font-mono text-emerald-300">80 hrs</span>
+            </div>
+            <div class="w-full bg-emerald-950 h-1.5 rounded-full border border-emerald-900">
+              <div class="bg-emerald-400 h-full rounded-full" style="width: 27%;"></div>
+            </div>
+            <p class="text-[10px] text-emerald-300/60">Advanced pivot tables, Pandas, NumPy</p>
+          </div>
+
+          <div class="bg-emerald-950/50 p-3 rounded-xl border border-emerald-900/60 space-y-1.5">
+            <div class="flex justify-between font-semibold">
+              <span class="text-slate-200 flex items-center gap-1.5"><i class="fa-solid fa-briefcase text-emerald-400"></i> Portfolio Projects</span>
+              <span class="font-mono text-emerald-300">70 hrs</span>
+            </div>
+            <div class="w-full bg-emerald-950 h-1.5 rounded-full border border-emerald-900">
+              <div class="bg-emerald-400 h-full rounded-full" style="width: 23%;"></div>
+            </div>
+            <p class="text-[10px] text-emerald-300/60">2-3 real business case studies hosted on GitHub</p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="glass-card rounded-2xl p-5 space-y-3">
+        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-lightbulb text-emerald-400"></i>
+          Key Transition Tips
+        </h3>
+        <ul class="space-y-2.5 text-xs text-emerald-200/90">
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-circle-check text-emerald-400 mt-0.5"></i>
+            <span><strong>Leverage bar experience:</strong> Your first portfolio project can analyze bar sales or beverage inventory.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-circle-check text-emerald-400 mt-0.5"></i>
+            <span><strong>Protect peak shifts:</strong> Work high-tip days (e.g., Fri/Sat) to maximize income in fewer total hours.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <i class="fa-solid fa-circle-check text-emerald-400 mt-0.5"></i>
+            <span><strong>Consistency in Coursera:</strong> Hitting 2 hours daily consistently beats cramming 8 hours in a single day.</span>
+          </li>
+        </ul>
+      </div>
+
+    </section>
+
+  </main>
+
+  <div id="settings-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="glass-card-accent max-w-lg w-full rounded-2xl p-6 space-y-6 shadow-2xl relative">
+      
+      <div class="flex items-center justify-between border-b border-emerald-900/60 pb-3">
+        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-gears text-emerald-400"></i> Customize My Financial Numbers
+        </h3>
+        <button id="close-settings-btn" class="text-emerald-300 hover:text-white text-lg px-2 py-1 rounded">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold text-emerald-200 mb-1">Average Income per Shift ($)</label>
+            <input type="number" id="setting-shift-rate" value="200" class="w-full bg-emerald-950 border border-emerald-800 rounded-lg p-2.5 text-white font-mono focus:border-emerald-400 focus:outline-none">
+          </div>
+          <div>
+            <label class="block font-semibold text-emerald-200 mb-1">Monthly Living Expenses ($)</label>
+            <input type="number" id="setting-expenses" value="2500" class="w-full bg-emerald-950 border border-emerald-800 rounded-lg p-2.5 text-white font-mono focus:border-emerald-400 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold text-emerald-200 mb-1">Current Available Savings ($)</label>
+            <input type="number" id="setting-savings" value="4000" class="w-full bg-emerald-950 border border-emerald-800 rounded-lg p-2.5 text-white font-mono focus:border-emerald-400 focus:outline-none">
+          </div>
+          <div>
+            <label class="block font-semibold text-emerald-200 mb-1">Total Course + Portfolio Hours</label>
+            <input type="number" id="setting-curriculum-hours" value="300" class="w-full bg-emerald-950 border border-emerald-800 rounded-lg p-2.5 text-white font-mono focus:border-emerald-400 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold text-emerald-200 mb-1">Target Data Analyst Salary ($/yr)</label>
+            <input type="number" id="setting-target-salary" value="68000" class="w-full bg-emerald-950 border border-emerald-800 rounded-lg p-2.5 text-white font-mono focus:border-emerald-400 focus:outline-none">
+          </div>
+          <div>
+            <label class="block font-semibold text-emerald-200 mb-1">Estimated Job Hunt Months</label>
+            <input type="number" id="setting-job-hunt-months" value="3" class="w-full bg-emerald-950 border border-emerald-800 rounded-lg p-2.5 text-white font-mono focus:border-emerald-400 focus:outline-none">
+          </div>
+        </div>
+
+      </div>
+
+      <div class="flex justify-end gap-3 border-t border-emerald-900/60 pt-4">
+        <button id="cancel-settings-btn" class="px-4 py-2 text-xs font-medium text-emerald-300 hover:text-white bg-emerald-950 rounded-lg border border-emerald-800">Cancel</button>
+        <button id="save-settings-btn" class="px-4 py-2 text-xs font-bold text-slate-950 bg-emerald-400 hover:bg-emerald-300 rounded-lg shadow-md">Save & Apply</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    let state = {
+      shiftsPerWeek: 4.0,
+      dailyStudyHours: 2.0, // Coursera target
+      studyDaysPerWeek: 6,
+      
+      // Financial Assumptions
+      shiftRate: 200,             // Average tips + wage per shift ($200)
+      monthlyExpenses: 2500,       // Living cost per month ($2,500)
+      currentSavings: 4000,        // Liquid savings fund ($4,000)
+      curriculumHours: 300,        // Coursera + Portfolio target hours (300)
+      targetSalary: 68000,         // Target entry-level Data Analyst salary ($68,000)
+      jobHuntMonths: 3            // Expected job hunt timeframe
+    };
+
+    const presets = {
+      coursera_standard: {
+        name: "My Goal (2h Coursera)",
+        shiftsPerWeek: 4.0,
+        dailyStudyHours: 2.0,
+        studyDaysPerWeek: 6
+      },
+      fast_track: {
+        name: "Fast Track Pace",
+        shiftsPerWeek: 3.0,
+        dailyStudyHours: 3.5,
+        studyDaysPerWeek: 6
+      },
+      max_income: {
+        name: "Maximum Financial Safety",
+        shiftsPerWeek: 5.0,
+        dailyStudyHours: 1.5,
+        studyDaysPerWeek: 6
+      }
+    };
+
+    let runwayChart = null;
+
+    function calculateModel(shifts, dailyHours, studyDays, params = state) {
+      // Monthly Shift Income (approx 4.33 weeks per month)
+      const monthlyBartendGross = shifts * params.shiftRate * 4.3333;
+      const monthlyNetCashflow = monthlyBartendGross - params.monthlyExpenses;
+
+      // Coursera Study Velocity
+      const weeklyStudyHours = dailyHours * studyDays;
+      const monthlyStudyHours = weeklyStudyHours * 4.3333;
+      
+      // Time to Complete Coursera & Portfolio (Months)
+      const monthsToReady = params.curriculumHours / Math.max(monthlyStudyHours, 1);
+      
+      // Total Accumulated Savings / Buffer at Graduation
+      const savingsAtLaunch = params.currentSavings + (monthlyNetCashflow * monthsToReady);
+      
+      // Job Search Safety Runway (How many months living expenses are covered)
+      const searchRunwayMonths = savingsAtLaunch / Math.max(params.monthlyExpenses, 1);
+
+      // Work + Study Weekly Hours (Burnout check)
+      const weeklyBartendHours = shifts * 7.5;
+      const totalWeeklyCommitment = weeklyBartendHours + weeklyStudyHours;
+
+      // Salary Growth Post-Pivot
+      const targetMonthlyTotalValue = (params.targetSalary / 12) + 500; // salary + health/PTO value
+      const currentMonthlyBartendValue = monthlyBartendGross;
+      const monthlyGain = targetMonthlyTotalValue - currentMonthlyBartendValue;
+      const annualGain = monthlyGain * 12;
+
+      return {
+        monthlyBartendGross,
+        monthlyNetCashflow,
+        weeklyStudyHours,
+        monthlyStudyHours,
+        monthsToReady,
+        savingsAtLaunch,
+        searchRunwayMonths,
+        totalWeeklyCommitment,
+        monthlyGain,
+        annualGain
+      };
+    }
+
+    function updateUI() {
+      // Read slider controls
+      const shifts = parseFloat(document.getElementById('shifts-slider').value);
+      const studyHrs = parseFloat(document.getElementById('study-slider').value);
+      state.shiftsPerWeek = shifts;
+      state.dailyStudyHours = studyHrs;
+
+      // Update Slider Display Values
+      document.getElementById('shifts-val').innerText = shifts.toFixed(1);
+      document.getElementById('study-val').innerText = studyHrs.toFixed(1);
+
+      // Compute Model Results
+      const results = calculateModel(shifts, studyHrs, state.studyDaysPerWeek);
+
+      // Footer labels on controls
+      document.getElementById('shift-income-calc').innerText = `$${Math.round(results.monthlyBartendGross).toLocaleString()} / mo`;
+      document.getElementById('weekly-study-calc').innerText = `${results.weeklyStudyHours.toFixed(1)} hrs / wk (${state.studyDaysPerWeek} days)`;
+
+      // Time to Readiness KPI
+      document.getElementById('kpi-months-ready').innerText = results.monthsToReady.toFixed(1);
+      document.getElementById('kpi-hours-summary').innerText = `Goal: ${state.curriculumHours} hrs (${Math.round(results.monthlyStudyHours)} hrs/mo on Coursera)`;
+      
+      const readyDate = new Date();
+      readyDate.setMonth(readyDate.getMonth() + Math.round(results.monthsToReady));
+      const readyMonthStr = readyDate.toLocaleString('en-US', { month: 'long', year: 'numeric' });
+      document.getElementById('kpi-ready-date').innerText = readyMonthStr;
+
+      // Income & Expense Balance KPI
+      const netSurplusElem = document.getElementById('kpi-net-surplus');
+      const incomeBadge = document.getElementById('kpi-income-badge');
+      const financialStatusElem = document.getElementById('kpi-financial-status');
+      const incomeCard = document.getElementById('kpi-income-card');
+
+      document.getElementById('kpi-expense-breakdown').innerText = `Income $${Math.round(results.monthlyBartendGross).toLocaleString()} - Expenses $${state.monthlyExpenses.toLocaleString()}`;
+
+      if (results.monthlyNetCashflow >= 0) {
+        netSurplusElem.innerText = `+$${Math.round(results.monthlyNetCashflow).toLocaleString()}`;
+        netSurplusElem.className = 'text-3xl font-black text-emerald-300 font-mono';
+        incomeBadge.innerText = 'Income Covered';
+        incomeBadge.className = 'text-[10px] px-2 py-0.5 rounded font-bold bg-emerald-500/20 text-emerald-200 border border-emerald-500/30';
+        financialStatusElem.innerText = 'Covering expenses & saving';
+        financialStatusElem.className = 'font-bold text-emerald-300';
+        incomeCard.className = 'glass-card rounded-2xl p-5 border-l-4 border-l-emerald-500 flex flex-col justify-between';
+      } else {
+        netSurplusElem.innerText = `-$${Math.abs(Math.round(results.monthlyNetCashflow)).toLocaleString()}`;
+        netSurplusElem.className = 'text-3xl font-black text-amber-400 font-mono';
+        incomeBadge.innerText = 'Partial Deficit';
+        incomeBadge.className = 'text-[10px] px-2 py-0.5 rounded font-bold bg-amber-500/20 text-amber-200 border border-amber-500/30';
+        financialStatusElem.innerText = 'Using savings to cover gap';
+        financialStatusElem.className = 'font-bold text-amber-400';
+        incomeCard.className = 'glass-card rounded-2xl p-5 border-l-4 border-l-amber-500 flex flex-col justify-between';
+      }
+
+      // Savings Buffer KPI
+      document.getElementById('kpi-buffer-launch').innerText = `$${Math.round(results.savingsAtLaunch).toLocaleString()}`;
+      document.getElementById('kpi-search-runway-months').innerText = `${results.searchRunwayMonths.toFixed(1)} Months`;
+
+      // Annual Gain KPI
+      document.getElementById('kpi-annual-gain').innerText = `+$${Math.round(results.annualGain).toLocaleString()}`;
+      document.getElementById('kpi-target-salary-display').innerText = `$${state.targetSalary.toLocaleString()} / yr`;
+
+      // Workload & Health Bar
+      const burnoutBar = document.getElementById('burnout-bar');
+      const burnoutTag = document.getElementById('burnout-tag');
+      const burnoutDesc = document.getElementById('burnout-desc');
+      const totalHrs = results.totalWeeklyCommitment;
+
+      const fillPct = Math.min(100, Math.max(10, (totalHrs / 70) * 100));
+      burnoutBar.style.width = `${fillPct}%`;
+
+      if (totalHrs <= 44) {
+        burnoutTag.innerText = 'Sustainable & Safe';
+        burnoutTag.className = 'font-bold text-emerald-300 px-2 py-0.5 rounded bg-emerald-500/20 border border-emerald-500/30 text-[11px]';
+        burnoutBar.className = 'bg-emerald-400 h-full rounded-full transition-all duration-300';
+        burnoutDesc.innerText = `Total load: ${totalHrs.toFixed(1)} hrs/wk. Comfortable pace that maintains your income without burnout.`;
+      } else if (totalHrs <= 54) {
+        burnoutTag.innerText = 'Moderate Effort';
+        burnoutTag.className = 'font-bold text-teal-300 px-2 py-0.5 rounded bg-teal-500/20 border border-teal-500/30 text-[11px]';
+        burnoutBar.className = 'bg-teal-400 h-full rounded-full transition-all duration-300';
+        burnoutDesc.innerText = `Total load: ${totalHrs.toFixed(1)} hrs/wk. Solid pace, requires steady consistency.`;
+      } else {
+        burnoutTag.innerText = 'Burnout Risk';
+        burnoutTag.className = 'font-bold text-amber-300 px-2 py-0.5 rounded bg-amber-500/20 border border-amber-500/30 text-[11px]';
+        burnoutBar.className = 'bg-amber-400 h-full rounded-full transition-all duration-300';
+        burnoutDesc.innerText = `Total load: ${totalHrs.toFixed(1)} hrs/wk. Watch out for fatigue affecting study retention.`;
+      }
+
+      // Update Visualizations
+      updateRunwayChart(results);
+      renderComparisonTable();
+    }
+
+    function updateRunwayChart(currentResults) {
+      const ctx = document.getElementById('runwayChart').getContext('2d');
+
+      const labels = ['Start', 'Mo 1', 'Mo 2', 'Mo 3', 'Mo 4', 'Mo 5', 'Mo 6', 'Mo 7', 'Mo 8', 'Mo 9', 'Mo 10', 'Mo 11', 'Mo 12'];
+      const cashData = [];
+      const readyMonth = currentResults.monthsToReady;
+      const jobSearchEndMonth = readyMonth + state.jobHuntMonths;
+
+      let currentCash = state.currentSavings;
+
+      for (let m = 0; m <= 12; m++) {
+        cashData.push(Math.round(currentCash));
+
+        if (m < readyMonth) {
+          // Study Phase: Net monthly cashflow from bartending
+          currentCash += currentResults.monthlyNetCashflow;
+        } else if (m < jobSearchEndMonth) {
+          // Job Search Phase: Minimal burn during job hunt
+          currentCash += Math.min(0, currentResults.monthlyNetCashflow) - 300;
+        } else {
+          // Data Analyst Role: Target salary surplus
+          const analystMonthlyNet = (state.targetSalary / 12) - state.monthlyExpenses;
+          currentCash += Math.max(1200, analystMonthlyNet);
+        }
+      }
+
+      const safetyFloorData = Array(13).fill(state.monthlyExpenses);
+
+      if (runwayChart) {
+        runwayChart.data.labels = labels;
+        runwayChart.data.datasets[0].data = cashData;
+        runwayChart.data.datasets[1].data = safetyFloorData;
+        runwayChart.update();
+      } else {
+        runwayChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: 'Total Savings ($)',
+                data: cashData,
+                borderColor: '#34d399',
+                backgroundColor: 'rgba(52, 211, 153, 0.15)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.35,
+                pointRadius: 4,
+                pointHoverRadius: 6,
+                pointBackgroundColor: '#10b981'
+              },
+              {
+                label: 'Minimum Monthly Expenses ($2,500)',
+                data: safetyFloorData,
+                borderColor: '#5eead4',
+                borderWidth: 2,
+                borderDash: [6, 6],
+                fill: false,
+                pointRadius: 0
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: '#064e3b',
+                titleColor: '#f0fdf4',
+                bodyColor: '#a7f3d0',
+                borderColor: '#059669',
+                borderWidth: 1,
+                padding: 10,
+                callbacks: {
+                  label: function(context) {
+                    return `${context.dataset.label}: $${context.parsed.y.toLocaleString()}`;
+                  }
+                }
+              }
+            },
+            scales: {
+              x: {
+                grid: { color: 'rgba(52, 211, 153, 0.08)' },
+                ticks: { color: '#a7f3d0', font: { size: 11 } }
+              },
+              y: {
+                grid: { color: 'rgba(52, 211, 153, 0.08)' },
+                ticks: { 
+                  color: '#a7f3d0', 
+                  font: { size: 11 },
+                  callback: function(val) { return '$' + val.toLocaleString(); }
+                }
+              }
+            }
+          }
+        });
+      }
+    }
+
+    function renderComparisonTable() {
+      const tbody = document.getElementById('comparison-table-body');
+      tbody.innerHTML = '';
+
+      const currentScenarioObj = {
+        id: 'current',
+        name: '👉 Current Setup',
+        shiftsPerWeek: state.shiftsPerWeek,
+        dailyStudyHours: state.dailyStudyHours,
+        studyDaysPerWeek: state.studyDaysPerWeek,
+        isCurrent: true
+      };
+
+      const presetList = [
+        { id: 'coursera_standard', ...presets.coursera_standard },
+        { id: 'fast_track', ...presets.fast_track },
+        { id: 'max_income', ...presets.max_income }
+      ];
+
+      const allScenarios = [currentScenarioObj, ...presetList];
+
+      allScenarios.forEach(item => {
+        const res = calculateModel(item.shiftsPerWeek, item.dailyStudyHours, item.studyDaysPerWeek);
+        const row = document.createElement('tr');
+        row.className = `${item.isCurrent ? 'bg-emerald-950/80 font-medium border-l-2 border-l-emerald-400' : 'hover:bg-emerald-900/30'} transition`;
+
+        let evalBadgeClass = 'text-emerald-300 bg-emerald-500/20 border-emerald-500/30';
+        let evalText = 'Balanced';
+        if (res.monthlyNetCashflow < 0) {
+          evalBadgeClass = 'text-amber-300 bg-amber-500/20 border-amber-500/30';
+          evalText = 'Using Savings';
+        } else if (res.totalWeeklyCommitment <= 42) {
+          evalBadgeClass = 'text-emerald-300 bg-emerald-500/20 border-emerald-500/30';
+          evalText = 'Ideal & Comfortable';
+        }
+
+        row.innerHTML = `
+          <td class="py-3.5 px-4 font-bold text-slate-100">
+            ${item.name}
+          </td>
+          <td class="py-3.5 px-4 font-mono text-emerald-200">${item.shiftsPerWeek.toFixed(1)} shifts</td>
+          <td class="py-3.5 px-4 font-mono text-emerald-300 font-bold">${item.dailyStudyHours.toFixed(1)} hrs/day</td>
+          <td class="py-3.5 px-4 font-mono font-bold text-white">${res.monthsToReady.toFixed(1)} months</td>
+          <td class="py-3.5 px-4 font-mono ${res.monthlyNetCashflow >= 0 ? 'text-emerald-300' : 'text-amber-300'}">
+            ${res.monthlyNetCashflow >= 0 ? '+' : ''}$${Math.round(res.monthlyNetCashflow).toLocaleString()} / mo
+          </td>
+          <td class="py-3.5 px-4 font-mono text-emerald-300 font-bold">$${Math.round(res.savingsAtLaunch).toLocaleString()}</td>
+          <td class="py-3.5 px-4">
+            <span class="text-[10px] px-2 py-0.5 rounded border font-semibold ${evalBadgeClass}">
+              ${evalText}
+            </span>
+          </td>
+          <td class="py-3.5 px-4 text-right">
+            ${!item.isCurrent ? `
+              <button onclick="applyScenario('${item.id}')" class="px-2.5 py-1 text-[11px] font-bold text-slate-950 bg-emerald-400 hover:bg-emerald-300 rounded shadow transition">
+                Load
+              </button>
+            ` : '<span class="text-[11px] text-emerald-400 font-bold font-mono">Active</span>'}
+          </td>
+        `;
+
+        tbody.appendChild(row);
+      });
+    }
+
+    window.applyScenario = function(scId) {
+      const target = presets[scId];
+      if (target) {
+        document.getElementById('shifts-slider').value = target.shiftsPerWeek;
+        document.getElementById('study-slider').value = target.dailyStudyHours;
+        state.studyDaysPerWeek = target.studyDaysPerWeek || 6;
+        
+        document.querySelectorAll('.study-days-btn').forEach(btn => {
+          const days = parseInt(btn.getAttribute('data-days'));
+          if (days === state.studyDaysPerWeek) {
+            btn.className = 'study-days-btn px-2.5 py-1 text-xs rounded font-bold text-slate-950 bg-emerald-400 shadow transition';
+          } else {
+            btn.className = 'study-days-btn px-2.5 py-1 text-xs rounded font-medium text-emerald-300/70 hover:text-white transition';
+          }
+        });
+
+        updateUI();
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // Sliders Live Update
+      document.getElementById('shifts-slider').addEventListener('input', updateUI);
+      document.getElementById('study-slider').addEventListener('input', updateUI);
+
+      // Preset Buttons
+      document.querySelectorAll('.preset-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const presetKey = btn.getAttribute('data-preset');
+          applyScenario(presetKey);
+        });
+      });
+
+      // Study Days Toggle
+      document.querySelectorAll('.study-days-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const days = parseInt(e.target.getAttribute('data-days'));
+          state.studyDaysPerWeek = days;
+          
+          document.querySelectorAll('.study-days-btn').forEach(b => {
+            b.className = 'study-days-btn px-2.5 py-1 text-xs rounded font-medium text-emerald-300/70 hover:text-white transition';
+          });
+          e.target.className = 'study-days-btn px-2.5 py-1 text-xs rounded font-bold text-slate-950 bg-emerald-400 shadow transition';
+
+          updateUI();
+        });
+      });
+
+      // Settings Modal Control
+      const modal = document.getElementById('settings-modal');
+      document.getElementById('open-settings-btn').addEventListener('click', () => {
+        document.getElementById('setting-shift-rate').value = state.shiftRate;
+        document.getElementById('setting-expenses').value = state.monthlyExpenses;
+        document.getElementById('setting-savings').value = state.currentSavings;
+        document.getElementById('setting-curriculum-hours').value = state.curriculumHours;
+        document.getElementById('setting-target-salary').value = state.targetSalary;
+        document.getElementById('setting-job-hunt-months').value = state.jobHuntMonths;
+        modal.classList.remove('hidden');
+      });
+
+      const closeModal = () => modal.classList.add('hidden');
+      document.getElementById('close-settings-btn').addEventListener('click', closeModal);
+      document.getElementById('cancel-settings-btn').addEventListener('click', closeModal);
+
+      // Save Settings Action
+      document.getElementById('save-settings-btn').addEventListener('click', () => {
+        state.shiftRate = parseFloat(document.getElementById('setting-shift-rate').value) || 200;
+        state.monthlyExpenses = parseFloat(document.getElementById('setting-expenses').value) || 2500;
+        state.currentSavings = parseFloat(document.getElementById('setting-savings').value) || 4000;
+        state.curriculumHours = parseFloat(document.getElementById('setting-curriculum-hours').value) || 300;
+        state.targetSalary = parseFloat(document.getElementById('setting-target-salary').value) || 68000;
+        state.jobHuntMonths = parseFloat(document.getElementById('setting-job-hunt-months').value) || 3;
+        
+        closeModal();
+        updateUI();
+      });
+
+      // Reset Defaults
+      document.getElementById('reset-defaults-btn').addEventListener('click', () => {
+        state.shiftRate = 200;
+        state.monthlyExpenses = 2500;
+        state.currentSavings = 4000;
+        state.curriculumHours = 300;
+        state.targetSalary = 68000;
+        state.jobHuntMonths = 3;
+        applyScenario('coursera_standard');
+      });
+
+      // Initializing default layout
+      updateUI();
+    });
+  </script>
+
+</body>
+</html>
